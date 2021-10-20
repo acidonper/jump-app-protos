@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option go_package = "github.com/acidonpe/jump-app-protos/jumpapp";
+
+package jumpapp;
+
+import "google/protobuf/empty.proto";
+
+service JumpService {
+    rpc PerformJump (PerformJumpReq) returns (JumpRes) {};
+    rpc FinalJump (google.protobuf.Empty) returns (JumpRes) {};
+}
+
+message Jump {
+    string message = 1; 
+    string last_path = 2;
+    string jump_path = 3;
+    message JumpStep {
+        string jump = 1;
+    }
+    repeated JumpStep jumps = 4;
+}
+
+message PerformJumpReq {
+    Jump jump = 1;
+}
+
+message JumpRes {
+    message JumpResponse {
+        int32 code = 1; 
+        string message = 2;
+    }
+    JumpResponse response = 1;
+}
