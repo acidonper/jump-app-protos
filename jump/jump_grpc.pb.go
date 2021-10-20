@@ -4,7 +4,7 @@
 // - protoc             v3.14.0
 // source: jump/jump.proto
 
-package jumpapp
+package jump
 
 import (
 	context "context"
