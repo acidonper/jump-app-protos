@@ -37,7 +37,7 @@ func NewJumpServiceClient(cc grpc.ClientConnInterface) JumpServiceClient {
 
 func (c *jumpServiceClient) PerformJump(ctx context.Context, in *PerformJumpReq, opts ...grpc.CallOption) (*JumpRes, error) {
 	out := new(JumpRes)
-	err := c.cc.Invoke(ctx, "/jumpapp.JumpService/PerformJump", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/jump.JumpService/PerformJump", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func (c *jumpServiceClient) PerformJump(ctx context.Context, in *PerformJumpReq,
 
 func (c *jumpServiceClient) FinalJump(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*JumpRes, error) {
 	out := new(JumpRes)
-	err := c.cc.Invoke(ctx, "/jumpapp.JumpService/FinalJump", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/jump.JumpService/FinalJump", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -95,7 +95,7 @@ func _JumpService_PerformJump_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/jumpapp.JumpService/PerformJump",
+		FullMethod: "/jump.JumpService/PerformJump",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(JumpServiceServer).PerformJump(ctx, req.(*PerformJumpReq))
@@ -113,7 +113,7 @@ func _JumpService_FinalJump_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/jumpapp.JumpService/FinalJump",
+		FullMethod: "/jump.JumpService/FinalJump",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(JumpServiceServer).FinalJump(ctx, req.(*emptypb.Empty))
@@ -125,7 +125,7 @@ func _JumpService_FinalJump_Handler(srv interface{}, ctx context.Context, dec fu
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var JumpService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "jumpapp.JumpService",
+	ServiceName: "jump.JumpService",
 	HandlerType: (*JumpServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
