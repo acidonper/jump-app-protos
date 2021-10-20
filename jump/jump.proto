@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "github.com/acidonpe/jump-app-protos/jump";
+option go_package = "github.com/acidonper/jump-app-protos/jump";
 
 package jump;
 
