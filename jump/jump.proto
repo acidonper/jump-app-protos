@@ -13,10 +13,7 @@ message Jump {
     string message = 1; 
     string last_path = 2;
     string jump_path = 3;
-    message JumpStep {
-        string jump = 1;
-    }
-    repeated JumpStep jumps = 4;
+    repeated string jumps = 4;
 }
 
 message PerformJumpReq {
