@@ -4,11 +4,9 @@ option go_package = "github.com/acidonper/jump-app-protos/jump";
 
 package jump;
 
-import "google/protobuf/empty.proto";
-
 service JumpService {
     rpc PerformJump (PerformJumpReq) returns (JumpRes) {};
-    rpc FinalJump (google.protobuf.Empty) returns (JumpRes) {};
+    rpc FinalJump (FinalJumpReq) returns (JumpRes) {};
 }
 
 message Jump {
@@ -24,6 +22,8 @@ message Jump {
 message PerformJumpReq {
     Jump jump = 1;
 }
+
+message FinalJumpReq {}
 
 message JumpRes {
     message JumpResponse {
