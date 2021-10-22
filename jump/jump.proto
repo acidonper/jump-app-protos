@@ -5,8 +5,7 @@ option go_package = "github.com/acidonper/jump-app-protos/jump";
 package jump;
 
 service JumpService {
-    rpc PerformJump (PerformJumpReq) returns (JumpRes) {};
-    rpc FinalJump (FinalJumpReq) returns (JumpRes) {};
+    rpc Jump (JumpReq) returns (JumpRes) {};
 }
 
 message Jump {
@@ -16,16 +15,15 @@ message Jump {
     repeated string jumps = 4;
 }
 
-message PerformJumpReq {
+message Response {
+    int32 code = 1; 
+    string message = 2;
+}
+
+message JumpReq {
     Jump jump = 1;
 }
 
-message FinalJumpReq {}
-
 message JumpRes {
-    message JumpResponse {
-        int32 code = 1; 
-        string message = 2;
-    }
-    JumpResponse response = 1;
+    Response response = 1;
 }

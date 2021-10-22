@@ -22,8 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type JumpServiceClient interface {
-	PerformJump(ctx context.Context, in *PerformJumpReq, opts ...grpc.CallOption) (*JumpRes, error)
-	FinalJump(ctx context.Context, in *FinalJumpReq, opts ...grpc.CallOption) (*JumpRes, error)
+	Jump(ctx context.Context, in *JumpReq, opts ...grpc.CallOption) (*JumpRes, error)
 }
 
 type jumpServiceClient struct {
@@ -34,18 +33,9 @@ func NewJumpServiceClient(cc grpc.ClientConnInterface) JumpServiceClient {
 	return &jumpServiceClient{cc}
 }
 
-func (c *jumpServiceClient) PerformJump(ctx context.Context, in *PerformJumpReq, opts ...grpc.CallOption) (*JumpRes, error) {
+func (c *jumpServiceClient) Jump(ctx context.Context, in *JumpReq, opts ...grpc.CallOption) (*JumpRes, error) {
 	out := new(JumpRes)
-	err := c.cc.Invoke(ctx, "/jump.JumpService/PerformJump", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *jumpServiceClient) FinalJump(ctx context.Context, in *FinalJumpReq, opts ...grpc.CallOption) (*JumpRes, error) {
-	out := new(JumpRes)
-	err := c.cc.Invoke(ctx, "/jump.JumpService/FinalJump", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/jump.JumpService/Jump", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -56,8 +46,7 @@ func (c *jumpServiceClient) FinalJump(ctx context.Context, in *FinalJumpReq, opt
 // All implementations must embed UnimplementedJumpServiceServer
 // for forward compatibility
 type JumpServiceServer interface {
-	PerformJump(context.Context, *PerformJumpReq) (*JumpRes, error)
-	FinalJump(context.Context, *FinalJumpReq) (*JumpRes, error)
+	Jump(context.Context, *JumpReq) (*JumpRes, error)
 	mustEmbedUnimplementedJumpServiceServer()
 }
 
@@ -65,11 +54,8 @@ type JumpServiceServer interface {
 type UnimplementedJumpServiceServer struct {
 }
 
-func (UnimplementedJumpServiceServer) PerformJump(context.Context, *PerformJumpReq) (*JumpRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PerformJump not implemented")
-}
-func (UnimplementedJumpServiceServer) FinalJump(context.Context, *FinalJumpReq) (*JumpRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method FinalJump not implemented")
+func (UnimplementedJumpServiceServer) Jump(context.Context, *JumpReq) (*JumpRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Jump not implemented")
 }
 func (UnimplementedJumpServiceServer) mustEmbedUnimplementedJumpServiceServer() {}
 
@@ -84,38 +70,20 @@ func RegisterJumpServiceServer(s grpc.ServiceRegistrar, srv JumpServiceServer) {
 	s.RegisterService(&JumpService_ServiceDesc, srv)
 }
 
-func _JumpService_PerformJump_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PerformJumpReq)
+func _JumpService_Jump_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(JumpReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(JumpServiceServer).PerformJump(ctx, in)
+		return srv.(JumpServiceServer).Jump(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/jump.JumpService/PerformJump",
+		FullMethod: "/jump.JumpService/Jump",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(JumpServiceServer).PerformJump(ctx, req.(*PerformJumpReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _JumpService_FinalJump_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FinalJumpReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(JumpServiceServer).FinalJump(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/jump.JumpService/FinalJump",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(JumpServiceServer).FinalJump(ctx, req.(*FinalJumpReq))
+		return srv.(JumpServiceServer).Jump(ctx, req.(*JumpReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -128,12 +96,8 @@ var JumpService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*JumpServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "PerformJump",
-			Handler:    _JumpService_PerformJump_Handler,
-		},
-		{
-			MethodName: "FinalJump",
-			Handler:    _JumpService_FinalJump_Handler,
+			MethodName: "Jump",
+			Handler:    _JumpService_Jump_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
