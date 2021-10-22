@@ -10,7 +10,7 @@ service JumpService {
 
 message Jump {
     string message = 1; 
-    string count = 2;
+    int32 count = 2;
     repeated string jumps = 3;
 }
 
