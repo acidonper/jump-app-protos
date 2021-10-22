@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type JumpServiceClient interface {
-	Jump(ctx context.Context, in *JumpReq, opts ...grpc.CallOption) (*JumpRes, error)
+	Jump(ctx context.Context, in *JumpReq, opts ...grpc.CallOption) (*Response, error)
 }
 
 type jumpServiceClient struct {
@@ -33,8 +33,8 @@ func NewJumpServiceClient(cc grpc.ClientConnInterface) JumpServiceClient {
 	return &jumpServiceClient{cc}
 }
 
-func (c *jumpServiceClient) Jump(ctx context.Context, in *JumpReq, opts ...grpc.CallOption) (*JumpRes, error) {
-	out := new(JumpRes)
+func (c *jumpServiceClient) Jump(ctx context.Context, in *JumpReq, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
 	err := c.cc.Invoke(ctx, "/jump.JumpService/Jump", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -46,7 +46,7 @@ func (c *jumpServiceClient) Jump(ctx context.Context, in *JumpReq, opts ...grpc.
 // All implementations must embed UnimplementedJumpServiceServer
 // for forward compatibility
 type JumpServiceServer interface {
-	Jump(context.Context, *JumpReq) (*JumpRes, error)
+	Jump(context.Context, *JumpReq) (*Response, error)
 	mustEmbedUnimplementedJumpServiceServer()
 }
 
@@ -54,7 +54,7 @@ type JumpServiceServer interface {
 type UnimplementedJumpServiceServer struct {
 }
 
-func (UnimplementedJumpServiceServer) Jump(context.Context, *JumpReq) (*JumpRes, error) {
+func (UnimplementedJumpServiceServer) Jump(context.Context, *JumpReq) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Jump not implemented")
 }
 func (UnimplementedJumpServiceServer) mustEmbedUnimplementedJumpServiceServer() {}
