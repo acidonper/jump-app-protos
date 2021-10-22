@@ -10,9 +10,8 @@ service JumpService {
 
 message Jump {
     string message = 1; 
-    string last_path = 2;
-    string jump_path = 3;
-    repeated string jumps = 4;
+    string count = 2;
+    repeated string jumps = 3;
 }
 
 message Response {
