@@ -2,6 +2,10 @@ syntax = "proto3";
 
 option go_package = "github.com/acidonper/jump-app-protos/jump";
 
+option java_multiple_files = true;
+option java_package = "com.acidonpe.jumpapp.grpc.proto";
+option java_outer_classname = "JumpProto";
+
 package jump;
 
 service JumpService {
