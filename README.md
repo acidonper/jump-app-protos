@@ -32,6 +32,17 @@ protoc -I=./ --java_out=./jump jump/jump.proto
 protoc --plugin=protoc-gen-grpc-java=/tmp/protoc-gen-grpc-java --grpc-java_out=./jump --proto_path=./jump jump.proto
 ```
 
+### Typescrypt
+
+* Navigate to https://github.com/grpc/grpc-web/releases
+* Download the latest version (>=1.3.0)
+* Move the binary to a PATH folder
+
+```$bash
+protoc -I=./ jump/jump.proto \
+  --js_out=import_style=commonjs,binary:./jump \
+  --grpc-web_out=import_style=typescript,mode=grpcweb:./jump
+```
 # Author
 
 Asier Cidon
